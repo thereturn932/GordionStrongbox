@@ -42,3 +42,9 @@ Pass rate is over 100.
 
 ### 0x01
 Address list in constructor is empty
+
+### 0x02
+One of the requested owners is zero address
+
+### 0x03
+Message sender is not owner
