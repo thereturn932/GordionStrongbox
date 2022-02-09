@@ -93,8 +93,8 @@ contract GordionStrongbox {
     function revokeNewUser(uint256 id) external onlyOwners {
         NewMember storage newMember = memberOffers[id - 1];
         require(newMember.isConfirmed[msg.sender], "0x12");
-        newMember.isConfirmed[msg.sender] = true;
-        newMember.noConfirmations++;
+        newMember.isConfirmed[msg.sender] = false;
+        newMember.noConfirmations--;
     }
 
     function addNewUser(uint256 id) external onlyOwners {
@@ -127,8 +127,8 @@ contract GordionStrongbox {
     function revokeNewRate(uint256 id) external onlyOwners {
         RateOffer storage newRate = rateOffers[id - 1];
         require(newRate.isConfirmed[msg.sender], "0x12");
-        newRate.isConfirmed[msg.sender] = true;
-        newRate.noConfirmations++;
+        newRate.isConfirmed[msg.sender] = false;
+        newRate.noConfirmations--;
     }
 
     function executeNewRate(uint256 id) external onlyOwners {
