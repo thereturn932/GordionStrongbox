@@ -42,3 +42,39 @@ Pass rate is over 100.
 
 ### 0x01
 Address list in constructor is empty
+
+### 0x02
+One of the requested owners is zero address
+
+### 0x03
+Message sender is not owner
+
+### 0x04
+Message sender is already confirmed the payment
+
+### 0x05
+Payment reciever can not be 0x0 address
+
+### 0x06
+Payment is already not accepted by message sender
+
+### 0x07
+Payment order does not have enough confirmations
+
+### 0x08
+Failed to send AVAX
+
+### 0x09
+Order is already executed
+
+### 0x10
+Message sender is already confirmed new rate
+
+### 0x11
+Not enough confirmations for rate change
+
+### 0x11
+New rate is already not accepted by message sender
+
+### 0x12
+Address is already one of the owners
