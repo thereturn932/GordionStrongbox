@@ -68,13 +68,16 @@ Failed to send AVAX
 Order is already executed
 
 ### 0x10
-Message sender is already confirmed new rate
+Message sender is already confirmed
 
 ### 0x11
-Not enough confirmations for rate change
-
-### 0x11
-New rate is already not accepted by message sender
+Not enough confirmations
 
 ### 0x12
+Request is already not accepted by message sender
+
+### 0x13
 Address is already one of the owners
+
+### 0x14
+Requested liquidity amount to remove is above current liquidity amount in the wallet
