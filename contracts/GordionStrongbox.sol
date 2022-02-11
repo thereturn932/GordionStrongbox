@@ -202,6 +202,7 @@ contract GordionStrongbox {
     }
 
     function revokeVote(uint256 id) external onlyOwners{
+
         Payment storage order = orders[id - 1];
         require(order.isConfirmed[msg.sender], "0x06");
         order.isConfirmed[msg.sender] = false;
@@ -211,6 +212,7 @@ contract GordionStrongbox {
     }
 
     function executePayment(uint256 id) external onlyOwners{
+
         require(checkPayment(id), "0x07");
         Payment storage order = orders[id - 1];
         require(!order.executed, "0x09");
@@ -257,13 +259,14 @@ contract GordionStrongbox {
         swap.noConfirmations++;
     }
 
+
     function acceptSwapRequest(uint256 id) external onlyOwners{
         Swap storage swap = swapRequests[id - 1];
         require(!swap.isConfirmed[msg.sender], "0x10");
         swap.isConfirmed[msg.sender] = true;
         swap.noConfirmations++;
     }
-
+    
     function revokeSwapRequest(uint256 id) external onlyOwners{
         Swap storage swap = swapRequests[id - 1];
         require(swap.isConfirmed[msg.sender], "0x12");
@@ -272,6 +275,7 @@ contract GordionStrongbox {
     }
 
     function executeSwapRequest(uint256 id) external onlyOwners{
+
         Swap storage swap = swapRequests[id - 1];
         require(swap.noConfirmations >= reqConfNo, "0x11");
         if(swap.to == address(0)){
@@ -312,12 +316,14 @@ contract GordionStrongbox {
         liquidity.noConfirmations++;
     }
 
+
     function acceptLiquidityRequest(uint256 id) external onlyOwners{
         Liquidity storage liquidity = liquidityRequests[id - 1];
         require(!liquidity.isConfirmed[msg.sender], "0x10");
         liquidity.isConfirmed[msg.sender] = true;
         liquidity.noConfirmations++;
     }
+
 
     function revokeLiquidityRequest(uint256 id) external onlyOwners{
         Liquidity storage liquidity = liquidityRequests[id - 1];
