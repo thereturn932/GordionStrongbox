@@ -21,7 +21,6 @@ PRIV_KEY= "YOUR PRIVATE KEY"
 
 ## Deploy
 
----
 
 To deploy on testnet
 ```shell
@@ -34,8 +33,6 @@ npx hardhat run --network mainnet scripts/deploy.js
 ```
 
 ## Error Codes
-
----
 
 ### 0x00
 Pass rate is over 100.
