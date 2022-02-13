@@ -12,7 +12,8 @@ contract GordionStrongbox {
     /**
     Events
      */
-    event Deposit(address indexed sender, uint256 amount);
+    event DepositAVAX(address indexed sender, uint256 amount);
+    event DepositToken(address indexed sender, uint256 amount, address tokenAddress);
     event SubmitPaymentOrder(
         uint256 indexed id,
         address to,
@@ -170,7 +171,14 @@ contract GordionStrongbox {
     function depositAvax() external payable onlyOwners {
         depositedAVAX[msg.sender] += msg.value;
 
-        emit Deposit(msg.sender, msg.value);
+        emit DepositAVAX(msg.sender, msg.value);
+    }
+
+    function depositToken(address _token, uint _value) external onlyOwners {
+        IERC20 token = IERC20(_token);
+        require(token.allowance(msg.sender, address(this))>= _value, "0x15");
+        token.transferFrom(msg.sender, address(this), _value);
+        emit DepositToken(msg.sender, _value, _token);
     }
 
     function sendPaymentOrder(
