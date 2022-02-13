@@ -81,3 +81,6 @@ Address is already one of the owners
 
 ### 0x14
 Requested liquidity amount to remove is above current liquidity amount in the wallet
+
+### 0x15
+Allovance is lower than the value requested
