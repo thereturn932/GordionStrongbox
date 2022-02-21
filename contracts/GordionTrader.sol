@@ -5,8 +5,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./IJoeRouter.sol";
 
 contract GordionTrader {
-    IJoeRouter02 joeRouter =
-        IJoeRouter02(address(0x60aE616a2155Ee3d9A68541Ba4544862310933d4));
+    address joeAddress = address(0x60aE616a2155Ee3d9A68541Ba4544862310933d4);
+    IJoeRouter02 joeRouter = IJoeRouter02(joeAddress);
 
     constructor() {}
 
@@ -23,6 +23,8 @@ contract GordionTrader {
             uint256 liquidity
         )
     {
+        IERC20(tokenA).approve(joeAddress, amountA);
+        IERC20(tokenB).approve(joeAddress, amountB);
         uint256 amountAMin = 0;
         uint256 amountBMin = 0;
         return
@@ -46,6 +48,7 @@ contract GordionTrader {
             uint256 liquidity
         )
     {
+        IERC20(token).approve(joeAddress, amountTokenDesired);
         uint256 amountTokenMin = 0;
         uint256 amountNativeMin = 0;
         return
@@ -100,8 +103,9 @@ contract GordionTrader {
         uint8 slippage,
         address[] calldata path
     ) external returns (uint256[] memory amounts) {
-        uint[] memory remAmounts = joeRouter.getAmountsOut(amountIn, path);
-        uint256 amountOutMin = (remAmounts[remAmounts.length-1] *
+        IERC20(path[0]).approve(joeAddress, amountIn);
+        uint256[] memory remAmounts = joeRouter.getAmountsOut(amountIn, path);
+        uint256 amountOutMin = (remAmounts[remAmounts.length - 1] *
             (100 - slippage)) / 100;
         return
             joeRouter.swapExactTokensForTokens(
@@ -118,11 +122,11 @@ contract GordionTrader {
         uint8 slippage,
         address[] calldata path
     ) external returns (uint256[] memory amounts) {
-        uint[] memory remAmounts = joeRouter.getAmountsOut(amountIn, path);
-        uint256 amountOutMin = (remAmounts[remAmounts.length-1] *
+        uint256[] memory remAmounts = joeRouter.getAmountsOut(amountIn, path);
+        uint256 amountOutMin = (remAmounts[remAmounts.length - 1] *
             (100 - slippage)) / 100;
         return
-            joeRouter.swapExactAVAXForTokens{value:amountIn}(
+            joeRouter.swapExactAVAXForTokens{value: amountIn}(
                 amountOutMin,
                 path,
                 address(this),
@@ -135,8 +139,9 @@ contract GordionTrader {
         uint8 slippage,
         address[] calldata path
     ) external returns (uint256[] memory amounts) {
-        uint[] memory remAmounts = joeRouter.getAmountsOut(amountIn, path);
-        uint256 amountOutMin = (remAmounts[remAmounts.length-1] *
+        IERC20(path[0]).approve(joeAddress, amountIn);
+        uint256[] memory remAmounts = joeRouter.getAmountsOut(amountIn, path);
+        uint256 amountOutMin = (remAmounts[remAmounts.length - 1] *
             (100 - slippage)) / 100;
         return
             joeRouter.swapExactTokensForAVAX(
